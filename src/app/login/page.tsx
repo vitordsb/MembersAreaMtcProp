@@ -3,7 +3,6 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import GoogleSignInButton from "@/components/GoogleSignInButton";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
 export default function LoginPage() {
@@ -67,14 +66,6 @@ export default function LoginPage() {
         >
           {loading ? "Entrando..." : "Entrar"}
         </button>
-
-        <div className="flex items-center gap-3">
-          <span className="h-px flex-1 bg-neutral-800" />
-          <span className="text-xs uppercase text-neutral-500">ou</span>
-          <span className="h-px flex-1 bg-neutral-800" />
-        </div>
-
-        <GoogleSignInButton label="Entrar com Google" next="/dashboard" />
 
         <p className="text-center text-sm text-neutral-400">
           Não tem conta?{" "}
