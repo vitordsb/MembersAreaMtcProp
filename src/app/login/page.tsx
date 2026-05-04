@@ -1,16 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState, Suspense } from "react";
 import { createSupabaseBrowserClient } from "@/lib/supabase/client";
 
-export default function LoginPage() {
+function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const confirmed = searchParams.get("confirmed") === "true";
+  const errorParam = searchParams.get("error");
+
   const supabase = createSupabaseBrowserClient();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(errorParam ?? null);
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
@@ -39,6 +43,14 @@ export default function LoginPage() {
         className="w-full max-w-sm space-y-5 rounded-lg border border-neutral-800 bg-neutral-900 p-6"
       >
         <h1 className="text-2xl font-semibold">Entrar</h1>
+
+        {confirmed && (
+          <div className="rounded-md border border-[color:var(--color-brand-green-dim)] bg-[color:var(--color-brand-green-soft)] px-4 py-3">
+            <p className="text-sm font-medium text-[color:var(--color-brand-green)]">
+              ✓ Email confirmado com sucesso! Faça login para acessar.
+            </p>
+          </div>
+        )}
 
         <label className="block space-y-1 text-sm">
           <span className="text-neutral-400">Email</span>
@@ -80,5 +92,13 @@ export default function LoginPage() {
         </p>
       </form>
     </main>
+  );
+}
+
+export default function LoginPage() {
+  return (
+    <Suspense>
+      <LoginForm />
+    </Suspense>
   );
 }

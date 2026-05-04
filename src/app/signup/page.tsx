@@ -32,7 +32,7 @@ export default function SignupPage() {
     }
     setLoading(true);
 
-    const emailRedirectTo = `${window.location.origin}/auth/callback?next=/dashboard`;
+    const emailRedirectTo = `${window.location.origin}/auth/callback?next=/login`;
 
     const { data, error: signUpError } = await supabase.auth.signUp({
       email,
@@ -99,7 +99,7 @@ export default function SignupPage() {
   async function handleResend() {
     if (!pendingEmail || resendCooldown > 0) return;
     setError(null);
-    const emailRedirectTo = `${window.location.origin}/auth/callback?next=/dashboard`;
+    const emailRedirectTo = `${window.location.origin}/auth/callback?next=/login`;
     const { error: resendError } = await supabase.auth.resend({
       type: "signup",
       email: pendingEmail,
