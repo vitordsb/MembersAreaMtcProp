@@ -20,7 +20,12 @@ export default function LoginPage() {
     const { error } = await supabase.auth.signInWithPassword({ email, password });
     setLoading(false);
     if (error) {
-      setError(error.message);
+      const msgs: Record<string, string> = {
+        "Invalid login credentials": "Email ou senha incorretos.",
+        "Email not confirmed": "Email ainda não confirmado. Verifique sua caixa de entrada.",
+        "Too many requests": "Muitas tentativas. Aguarde alguns minutos.",
+      };
+      setError(msgs[error.message] ?? error.message);
       return;
     }
     router.push("/dashboard");
