@@ -3,6 +3,7 @@
 import {
   Award,
   ChevronDown,
+  ClipboardList,
   FileText,
   Gamepad2,
   GraduationCap,
@@ -27,6 +28,7 @@ interface NavItem {
 const NAV: NavItem[] = [
   { label: "Dashboard", href: "/dashboard", icon: Home },
   { label: "Meus Planos", href: "/dashboard/planos", icon: TrendingUp },
+  { label: "Solicitações", href: "/dashboard/solicitacoes", icon: ClipboardList },
   { label: "Meus certificados", href: "/dashboard/certificados", icon: Award },
   { label: "Termos Aceitos", href: "/dashboard/termos", icon: FileText },
   {
